@@ -25,32 +25,34 @@ apt install zsh -y
 read -p "Press [Enter] key to install oh-my-zsh on root ..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-#Download .zshrc
-curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/.zshrc -O ~/.zshrc
+curl -o ~/.zshrc https://raw.githubusercontent.com/Drarox/dotfiles/main/.zshrc
 
 #Install for non root user
 read -p "Press [Enter] key to install oh-my-zsh on user ..."
-su $nonrootuser
+sudo -u $nonrootuser bash <<EOF
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-#Download .zshrc
-curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/.zshrc -O ~/.zshrc
-#Back to root
-exit
+curl -o ~/.zshrc https://raw.githubusercontent.com/Drarox/dotfiles/main/.zshrc
+EOF
 
 ### Tools
 read -p "Press [Enter] key to install mc ..."
 apt install mc -y
-curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/ini -O ~/.mc/config
-curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/filehighlight.ini -O ~/.mc/config
-curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/panels.ini -O ~/.mc/config
-curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/skins/onedark.ini -O ~/.local/share/mc/skins
-su $nonrootuser
-curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/ini -O ~/.mc/config
-curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/filehighlight.ini -O ~/.mc/config
-curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/panels.ini -O ~/.mc/config
-curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/skins/onedark.ini -O ~/.local/share/mc/skins
-exit
+mkdir -p ~/.config/mc/
+mkdir -p ~/.local/share/mc/skins
+curl -o ~/.config/mc/ini https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/ini
+curl -o ~/.config/mc/filehighlight.ini https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/filehighlight.ini
+curl -o ~/.config/mc/panels.ini https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/panels.ini
+curl -o ~/.local/share/mc/skins/onedark.ini https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/skins/onedark.ini
+# Non-root user actions
+sudo -u $nonrootuser bash <<EOF
+mkdir -p ~/.config/mc/
+mkdir -p ~/.local/share/mc/skins
+curl -o ~/.config/mc/ini https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/ini
+curl -o ~/.config/mc/filehighlight.ini https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/filehighlight.ini
+curl -o ~/.config/mc/panels.ini https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/panels.ini
+curl -o ~/.local/share/mc/skins/onedark.ini https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/skins/onedark.ini
+EOF
 
 ### Security
 apt install ufw -y
