@@ -4,6 +4,10 @@
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+#Aliases
+alias reverse="cd /var/lib/docker/volumes/reverse_nginx_reverse_conf/_data"
+alias reloadreverse="docker exec Nginx_Reverse /usr/sbin/nginx -s reload"
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
