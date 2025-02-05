@@ -14,6 +14,10 @@ read -p "Enter desired ssh port: " sshport
 read -p "Press [Enter] key to apt update & upgrade ..."
 apt update && apt upgrade
 
+### Install base tools
+apt install curl -y
+apt install git -y
+
 ### Terminal
 read -p "Press [Enter] key to install zsh ..."
 apt install zsh -y
@@ -22,7 +26,7 @@ read -p "Press [Enter] key to install oh-my-zsh on root ..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 #Download .zshrc
-wget https://raw.githubusercontent.com/Drarox/dotfiles/main/.zshrc -O ~/.zshrc
+curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/.zshrc -O ~/.zshrc
 
 #Install for non root user
 read -p "Press [Enter] key to install oh-my-zsh on user ..."
@@ -30,11 +34,26 @@ su $nonrootuser
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 #Download .zshrc
-wget https://raw.githubusercontent.com/Drarox/dotfiles/main/.zshrc -O ~/.zshrc
+curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/.zshrc -O ~/.zshrc
 #Back to root
 exit
 
-### Install unattended-upgrades
+### Tools
+read -p "Press [Enter] key to install mc ..."
+apt install mc -y
+curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/ini -O ~/.mc/config
+curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/filehighlight.ini -O ~/.mc/config
+curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/panels.ini -O ~/.mc/config
+curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/skins/onedark.ini -O ~/.local/share/mc/skins
+su $nonrootuser
+curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/ini -O ~/.mc/config
+curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/filehighlight.ini -O ~/.mc/config
+curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/panels.ini -O ~/.mc/config
+curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/skins/onedark.ini -O ~/.local/share/mc/skins
+exit
+
+### Security
+apt install ufw -y
 apt install unattended-upgrades -y
 
 ### Install docker
@@ -67,6 +86,7 @@ read -p "Press [Enter] key to change ssh port ..."
 sed -i "s/#Port 22/Port $sshport/g" /etc/ssh/sshd_config
 read -p "Please check if the port is correctly set :"
 cat /etc/ssh/sshd_config | grep Port
+read -p "Please add 2FA or Key-Based Authentication for security."
 
 read -p "Press [Enter] key to install and configure fail2ban ..."
 apt install fail2ban -y
