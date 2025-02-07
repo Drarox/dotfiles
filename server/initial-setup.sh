@@ -22,16 +22,14 @@ apt install git -y
 read -p "Press [Enter] key to install zsh ..."
 apt install zsh -y
 
-read -p "Press [Enter] key to install oh-my-zsh on root ..."
+read -p "Press [Enter] key to install oh-my-zsh..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 curl -o ~/.zshrc https://raw.githubusercontent.com/Drarox/dotfiles/main/.zshrc
-
 #Install for non root user
-read -p "Press [Enter] key to install oh-my-zsh on user ..."
 sudo -u $nonrootuser bash <<EOF
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+sh -c "\$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+git clone https://github.com/zsh-users/zsh-autosuggestions \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 curl -o ~/.zshrc https://raw.githubusercontent.com/Drarox/dotfiles/main/.zshrc
 EOF
 
@@ -53,6 +51,30 @@ curl -o ~/.config/mc/filehighlight.ini https://raw.githubusercontent.com/Drarox/
 curl -o ~/.config/mc/panels.ini https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/config/panels.ini
 curl -o ~/.local/share/mc/skins/onedark.ini https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/skins/onedark.ini
 EOF
+
+read -p "Press [Enter] key to install micro ..."
+# global install for all users, registering with update-alternatives
+cd /usr/bin
+curl https://getmic.ro/r | sudo sh
+cd ~
+#Custom clipboard for tabby
+curl -o /usr/local/bin/micro-clip https://raw.githubusercontent.com/Drarox/dotfiles/main/micro/micro-clip
+chmod +x /usr/local/bin/micro-clip
+#Theme and settings
+mkdir -p ~/.config/micro/colorschemes
+curl -o ~/.config/micro/colorschemes/catppuccin-frappe-transparent.micro https://raw.githubusercontent.com/Drarox/dotfiles/main/micro/colorschemes/catppuccin-frappe-transparent.micro
+curl -o ~/.config/micro/settings.json https://raw.githubusercontent.com/Drarox/dotfiles/main/micro/settings.json
+# Non-root user actions
+sudo -u $nonrootuser bash <<EOF
+mkdir -p ~/.config/micro/colorschemes
+curl -o ~/.config/micro/colorschemes/catppuccin-frappe-transparent.micro https://raw.githubusercontent.com/Drarox/dotfiles/main/micro/colorschemes/catppuccin-frappe-transparent.micro
+curl -o ~/.config/micro/settings.json https://raw.githubusercontent.com/Drarox/dotfiles/main/micro/settings.json
+EOF
+
+read -p "Press [Enter] key to install gdu ..."
+add-apt-repository ppa:daniel-milde/gdu
+apt-get update
+apt-get install gdu -y
 
 ### Security
 apt install ufw -y
@@ -110,13 +132,3 @@ ufw enable
 read -p "Press [Enter] key to reboot ..."
 read -p "Please connect to new ssh port if changed."
 reboot
-
-
-
-
-
-
-
-
-
-
