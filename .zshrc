@@ -6,6 +6,9 @@ export PATH=$HOME/.local/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
 
 #Aliases
+alias ll="ls -la"
+alias cd..="cd .."
+#Nginx
 alias reverse="cd /var/lib/docker/volumes/reverse_nginx_reverse_conf/_data"
 alias reloadreverse="docker exec Nginx_Reverse /usr/sbin/nginx -s reload"
 

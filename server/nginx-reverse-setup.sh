@@ -34,7 +34,10 @@ mkdir snippets
 cd snippets
 curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/server/nginx-config/letsencrypt
 cd ..
+#Add crontab to renew certificates
 (crontab -l 2>/dev/null; echo "30 1 * * 1 /usr/bin/certbot renew >> /var/log/le-renew.log") | crontab -
+# Certbot hook to reload nginx automatically:
+echo 'deploy-hook = docker exec Nginx_Reverse /usr/sbin/nginx -s reload' | sudo tee -a /etc/letsencrypt/cli.ini
 
 echo "To create a certificate, run the following command:"
 echo "sudo certbot certonly --webroot -w /var/www/letsencrypt --agree-tos --no-eff-email --email name@domain.com -d domain.com --rsa-key-size 4096"
