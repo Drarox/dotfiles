@@ -2,18 +2,16 @@
 
 [ "$2" = clipboard ] || exit 0
 
-{ printf '%s\n' "`date`: $*"; } >> /root/clip-test.log
-
 case $1 in
   -i)
     # Prevent copying if no input is provided (fix for Micro startup issue)
-    data=$(cat)
+    data=$(cat && echo .); data=${data%.}
     if [ -z "$data" ]; then
       exit 0
     fi
 
     # Encode in Base64 and send via OSC 52
-    printf "\033]52;;%s\a" "$(echo -n "$data" | base64)" > /dev/tty
+    printf "\033]52;;%s\a" "$(printf %s "$data" | base64 -w0)" > /dev/tty
     ;;
   -o)
     # Pasting is not supported via OSC 52
