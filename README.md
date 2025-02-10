@@ -21,3 +21,8 @@ curl -o ~/.zshrc https://raw.githubusercontent.com/Drarox/dotfiles/main/.zshrc
 ```sh
 curl -s https://raw.githubusercontent.com/Drarox/dotfiles/main/mc/install.sh | sh
 ```
+
+### Install Mircro with config :
+```sh
+curl -s https://raw.githubusercontent.com/Drarox/dotfiles/main/micro/install.sh | sh
+```

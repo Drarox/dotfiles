@@ -34,6 +34,9 @@ curl -o ~/.zshrc https://raw.githubusercontent.com/Drarox/dotfiles/main/.zshrc
 EOF
 
 ### Tools
+read -p "Press [Enter] key to install cockpit ..."
+apt-get install cockpit -y
+
 read -p "Press [Enter] key to install mc ..."
 apt install mc -y
 mkdir -p ~/.config/mc/
