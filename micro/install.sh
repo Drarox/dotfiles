@@ -1,21 +1,28 @@
 #!/bin/sh
 
-echo 'You can choose to install micro or just the theme and settings'
+# Check if micro is installed
+if ! command -v micro >/dev/null 2>&1; then
+    echo "Micro is not installed. Installing now..."
 
-printf 'Install micro (y/N) ? '
-read answer
+    # Global install for all users
+    cd /usr/bin || exit
+    curl -s https://getmic.ro/r | sudo sh
+    cd ~ || exit
 
-if [ "$answer" != "${answer#[Yy]}" ] ;then 
-    # global install for all users, registering with update-alternatives
-    cd /usr/bin
-    curl https://getmic.ro/r | sudo sh
-    cd ~
-    #Custom clipboard for tabby
-    curl -o /usr/local/bin/micro-clip https://raw.githubusercontent.com/Drarox/dotfiles/main/micro/micro-clip
-    chmod +x /usr/local/bin/micro-clip
+    # Custom clipboard for tabby
+    sudo curl -s -o /usr/local/bin/micro-clip https://raw.githubusercontent.com/Drarox/dotfiles/main/micro/micro-clip
+    sudo chmod +x /usr/local/bin/micro-clip
+
+    echo "Micro installed successfully."
+else
+    echo "Micro is already installed. Skipping installation."
 fi
 
-#Theme and settings
+# Theme and settings installation (always runs)
 mkdir -p ~/.config/micro/colorschemes
-curl -o ~/.config/micro/colorschemes/catppuccin-frappe-transparent.micro https://raw.githubusercontent.com/Drarox/dotfiles/main/micro/colorschemes/catppuccin-frappe-transparent.micro
-curl -o ~/.config/micro/settings.json https://raw.githubusercontent.com/Drarox/dotfiles/main/micro/settings.json
+curl -s -o ~/.config/micro/colorschemes/catppuccin-frappe-transparent.micro \
+    https://raw.githubusercontent.com/Drarox/dotfiles/main/micro/colorschemes/catppuccin-frappe-transparent.micro
+curl -s -o ~/.config/micro/settings.json \
+    https://raw.githubusercontent.com/Drarox/dotfiles/main/micro/settings.json
+
+echo "Micro settings and theme have been applied."
