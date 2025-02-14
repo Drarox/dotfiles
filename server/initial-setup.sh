@@ -1,10 +1,30 @@
 #!/bin/bash
 
+### Preliminarie tests
 #Test if is runned in root
 if [[ $EUID -ne 0 ]]; then
     echo "This script must be run as root" 1>&2
     exit 1
 fi
+
+#Test if system is ubuntu
+if ! grep -q "Ubuntu" /etc/os-release; then
+    echo "This script can only be run on Ubuntu. Exiting..."
+    exit 1
+fi
+
+### Infos
+echo "This script will install and configure the following:"
+echo " - Upgrade the system"
+echo " - Install base tools : git, curl"
+echo " - Install terminal : zsh, oh-my-zsh"
+echo " - Install tools : cockpit, mc, micro, gdu"
+echo " - Install docker with portainer ce"
+echo " - Install ssh server and ufw"
+echo " - Change ssh port and configure ufw for ssh, http and https"
+echo " - Install and configure fail2ban"
+echo " - Reboot"
+read -p "Press [Enter] to continue ..."
 
 ### Variables
 read -p "Enter current user name: " nonrootuser
@@ -134,6 +154,7 @@ ufw allow 443
 ufw enable
 
 #Reboot
+echo "Setup done. Please reboot."
 read -p "Press [Enter] key to reboot ..."
 read -p "Please connect to new ssh port if changed."
 reboot

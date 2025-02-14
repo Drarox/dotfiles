@@ -1,18 +1,18 @@
 # Server setup
 
-### Server inital setup :
+### Server inital setup (ubuntu) :
 ```sh
 curl -s https://raw.githubusercontent.com/Drarox/dotfiles/main/server/initial-setup.sh | sh
 ```
 
-### Nginx reverse setup :
+### Nginx reverse setup (docker) :
 ```sh
 curl -s https://raw.githubusercontent.com/Drarox/dotfiles/main/server/nginx-reverse-setup.sh | sh
 ```
 
-# Tools setup
+# Tools setup and configuration
 
-### Custom .zshrc :
+### Download custom .zshrc :
 ```sh
 curl -o ~/.zshrc https://raw.githubusercontent.com/Drarox/dotfiles/main/.zshrc
 ```
