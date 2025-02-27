@@ -137,6 +137,7 @@ read -p "Please check if the port is correctly set :"
 cat /etc/ssh/sshd_config | grep Port
 read -p "Please add 2FA or Key-Based Authentication for security."
 
+#Install and setup fail2ban
 read -p "Press [Enter] key to install and configure fail2ban ..."
 apt install fail2ban -y
 cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
