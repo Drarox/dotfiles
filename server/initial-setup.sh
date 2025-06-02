@@ -126,7 +126,8 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 #Install portainer ce
 read -p "Press [Enter] key to install portainer ..."
 docker volume create portainer_data
-docker run -d -p "127.0.0.1:9443:9443" --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+docker run -d -p "127.0.0.1:9443:9443" --name Portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:lts
+curl -o ~/upgrade-portainer-ce.sh https://raw.githubusercontent.com/Drarox/dotfiles/main/server/upgrade-portainer-ce.sh
 
 ### Change ssh port & enable ufw
 read -p "Press [Enter] key to install ssh server ..."
