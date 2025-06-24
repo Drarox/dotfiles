@@ -134,6 +134,7 @@ curl -o ~/upgrade-portainer-ce.sh https://raw.githubusercontent.com/Drarox/dotfi
 ### Change ssh port & enable ufw
 read -p "Press [Enter] key to install ssh server ..."
 apt install openssh-server
+printf '\n%s\n' 'PermitRootLogin no' >>/etc/ssh/sshd_config
 read -p "Press [Enter] key to change ssh port ..."
 sed -i "s/#Port 22/Port $sshport/g" /etc/ssh/sshd_config
 read -p "Please check if the port is correctly set :"
