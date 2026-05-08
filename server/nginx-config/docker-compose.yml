@@ -4,15 +4,15 @@ services:
   reverse:
     container_name: Nginx_Reverse
     image: nginx:stable
-    network_mode: "host"   
+    network_mode: "host"
     restart: unless-stopped
     ports:
       - 80:80
       - 443:443
     volumes:
-      - nginx_reverse_conf:/etc/nginx
+      - nginx_conf:/etc/nginx
       - /var/www/letsencrypt:/var/www/letsencrypt
       - /etc/letsencrypt:/etc/letsencrypt
 
 volumes:
-  nginx_reverse_conf:
+  nginx_conf:

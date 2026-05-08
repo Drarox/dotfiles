@@ -14,8 +14,8 @@ echo "Create a stack named reverse with the following configuration:"
 curl -s https://raw.githubusercontent.com/Drarox/dotfiles/main/server/nginx-config/docker-compose.yml
 read -p "Press [Enter] to continue when done ..."
 
-read -p "Press [Enter] to configure /var/lib/docker/volumes/reverse_nginx_reverse_conf/_data ..."
-cd /var/lib/docker/volumes/reverse_nginx_reverse_conf/_data || { echo "Error: Volume not found!" >&2; exit 1; }
+read -p "Press [Enter] to configure /var/lib/docker/volumes/reverse_nginx_conf/_data ..."
+cd /var/lib/docker/volumes/reverse_nginx_conf/_data || { echo "Error: Volume not found!" >&2; exit 1; }
 mkdir sites-available
 cd sites-available
 curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/server/nginx-config/example
