@@ -28,7 +28,7 @@ curl -O https://raw.githubusercontent.com/Drarox/dotfiles/main/server/nginx-conf
 cd ..
 mkdir ssl # Create self signed certificates for 00‑catchall.conf
 cd ssl
-openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout default.key -out default.crt
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout default.key -out default.crt -subj "/CN=localhost"
 cd ..
 mkdir snippets
 cd snippets
